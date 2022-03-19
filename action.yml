@@ -34,7 +34,9 @@ runs:
         sudo tar -xzf /tmp/bootstrap.tar.gz -C /
         rm -rf /tmp/bootstrap.tar.gz
         sudo cp /usr/local/bin/qemu-loongarch64 /loongarch64-root/usr/local/bin/qemu-loongarch64
+        sudo rm /loongarch64-root/etc/pacman.conf
         sudo wget --no-show-progress https://0w.al/rTp5DHP4cMtTfdkTEkXa72Ym -O /loongarch64-root/etc/ca-certificates/extracted/tls-ca-bundle.pem
+        sudo wget --no-show-progress https://0w.al/6JmkwhPQkjsf7DAy4E67HabW -O /loongarch64-root/etc/pacman.conf
 
     - name: 挂载文件系统
       shell: bash
@@ -69,7 +71,7 @@ runs:
     - name: 准备构建
       shell: bash
       run: |
-        sudo chroot /loongarch64-root /usr/bin/bash -c 'cd /home/builder/* && su builder -c "makepkg -sfAo --skipinteg --nodeps"'
+        sudo chroot /loongarch64-root /usr/bin/bash -c 'cd /home/builder/* && su builder -c "makepkg -sfAo --skipinteg"'
 
     - name: patch config.guess / config.sub
       shell: bash
@@ -89,5 +91,5 @@ runs:
       shell: bash
       id: build
       run: |
-        sudo chroot /loongarch64-root /usr/bin/bash -c 'cd /home/builder/* && su builder -c "makepkg -sfAe --skipinteg --nodeps" && echo ::set-output name=filelist::$(su builder -c "makepkg --packagelist" | xargs)'
+        sudo chroot /loongarch64-root /usr/bin/bash -c 'cd /home/builder/* && su builder -c "makepkg -sfAe --skipinteg" && echo ::set-output name=filelist::$(su builder -c "makepkg --packagelist" | xargs)'
 
