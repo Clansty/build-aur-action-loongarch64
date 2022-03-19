@@ -17,7 +17,7 @@ outputs:
 
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/archlinux-loongarch64/build-aur-action-loongarch64:main'
+  image: 'docker://ghcr.io/clansty/build-aur-action-loongarch64:main'
   args:
     - ${{ inputs.repo-name }}
   env:
