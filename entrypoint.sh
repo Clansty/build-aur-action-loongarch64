@@ -15,5 +15,5 @@ chmod -R a+rw $pkgname
 mv $pkgname /loongarch64-root/home/builder/
 cd /loongarch64-root/home/builder/*
 
-chroot /loongarch64-root /usr/bin/bash -c "cd /home/builder/$pkgname && su builder -c 'makepkg -sfA --skipinteg --nodeps'"
+chroot /loongarch64-root /usr/bin/bash -c 'cd /home/builder/* && su builder -c "makepkg -sfA --skipinteg --nodeps"'
 echo ::set-output name=filelist::$(sudo --set-home -u builder CARCH=$ARCH makepkg --packagelist | xargs)
