@@ -77,12 +77,12 @@ runs:
         all_config_guess=$(sudo find /loongarch64-root/home/builder -name config.guess || echo '')
         for config_guess in ${all_config_guess};do
           sudo rm ${config_guess}
-          sudo wget http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess -O ${config_guess}
+          sudo wget 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess' -O ${config_guess}
         done
         all_config_sub=$(sudo find /loongarch64-root/home/builder -name config.sub || echo '')
         for config_sub in ${all_config_sub};do
           sudo rm ${config_sub}
-          sudo wget http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub -O ${config_sub}
+          sudo wget 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub' -O ${config_sub}
         done
 
     - name: 进行构建
