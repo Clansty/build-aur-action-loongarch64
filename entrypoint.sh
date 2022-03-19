@@ -2,8 +2,6 @@
 
 pkgname=$1
 
-yay -Syu
-
 useradd builder -m
 chroot /loongarch64-root /usr/bin/useradd -m builder
 echo PACKAGER="$PACKAGER" > /loongarch64-root/home/builder/.makepkg.conf
