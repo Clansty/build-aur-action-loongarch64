@@ -68,7 +68,6 @@ runs:
 
     - name: 准备构建
       shell: bash
-      id: build
       run: |
         sudo chroot /loongarch64-root /usr/bin/bash -c 'cd /home/builder/* && su builder -c "makepkg -sfAo --skipinteg --nodeps"'
 
