@@ -1,0 +1,24 @@
+name: 'Build AUR Package'
+branding:
+  icon: user-check
+  color: gray-dark
+inputs:
+  repo-name:
+    description: 'AUR repository name to build'
+    required: true
+  packager:
+    description: Packager's name
+    required: true
+  arch:
+    required: true
+outputs:
+  filelist:
+
+runs:
+  using: 'docker'
+  image: 'docker://ghcr.io/archlinux-loongarch64/build-aur-action-loongarch64:main'
+  args:
+    - ${{ inputs.repo-name }}
+  env:
+    ARCH: ${{ inputs.arch }}
+    PACKAGER: ${{ inputs.packager }}
