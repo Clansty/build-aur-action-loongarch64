@@ -5,7 +5,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 WORKDIR /tmp
 
 RUN pacman-key --init
-RUN pacman -Syu --noconfirm --needed base-devel wget
+RUN pacman -Syu --noconfirm --needed base-devel wget arch-install-scripts
 
 RUN wget https://github.com/sunhaiyong1978/CLFS-for-LoongArch/releases/download/20210903/qemu-x86_64-to-loongarch64 -O /usr/local/bin/qemu-loongarch64 && \
     chmod +x /usr/local/bin/qemu-loongarch64

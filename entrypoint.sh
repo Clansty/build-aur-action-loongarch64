@@ -4,7 +4,7 @@ pkgname=$1
 
 useradd builder -m
 chroot /loongarch64-root /usr/bin/useradd -m builder
-echo PACKAGER="$PACKAGER" > /loongarch64-root/home/builder/.makepkg.conf
+echo PACKAGER=\"$PACKAGER\" > /loongarch64-root/home/builder/.makepkg.conf
 echo 'COMPRESSZST=(zstd -19 -c -z -q --threads=0 -)' >> /loongarch64-root/home/builder/.makepkg.conf
 
 if [[ $pkgname != ./* ]];then
@@ -15,5 +15,5 @@ chmod -R a+rw $pkgname
 mv $pkgname /loongarch64-root/home/builder/
 cd /loongarch64-root/home/builder/*
 
-chroot /loongarch64-root /usr/bin/bash -c 'cd /home/builder/* && su builder -c "makepkg -sfA --skipinteg --nodeps"'
+arch-chroot /loongarch64-root /usr/bin/bash -c 'cd /home/builder/* && su builder -c "makepkg -sfA --skipinteg --nodeps"'
 echo ::set-output name=filelist::$(sudo --set-home -u builder CARCH=$ARCH makepkg --packagelist | xargs)
