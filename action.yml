@@ -71,7 +71,7 @@ runs:
     - name: 准备构建
       shell: bash
       run: |
-        sudo chroot /loongarch64-root /usr/bin/bash -c 'cd /home/builder/* && su builder -c "makepkg -sfAo --skipinteg"'
+        sudo chroot /loongarch64-root /usr/bin/bash -c 'pacman -Sy && cd /home/builder/* && su builder -c "makepkg -sfAo --skipinteg"'
 
     - name: patch config.guess / config.sub
       shell: bash
