@@ -13,6 +13,7 @@ inputs:
     required: true
 outputs:
   filelist:
+    description: 'The file list'
 
 runs:
   using: 'docker'

@@ -13,7 +13,7 @@ RUN wget https://github.com/sunhaiyong1978/CLFS-for-LoongArch/releases/download/
 COPY qemu-loongarch64.conf /etc/binfmt.d/qemu-loongarch64.conf
 
 RUN wget https://github.com/archlinux-loongarch64/archlinux-loongarch64-base/releases/download/v0.2/archlinux-bootstrap-2022.03.18-loongarch64.tar.gz -O /tmp/bootstrap.tar.gz && \
-    tar -xvf /tmp/bootstrap.tar.gz -C / && \
+    tar -xzf /tmp/bootstrap.tar.gz -C / && \
     rm -rf /tmp/bootstrap.tar.gz && \
     cp /usr/local/bin/qemu-loongarch64 /loongarch64-root/usr/local/bin/qemu-loongarch64
 
