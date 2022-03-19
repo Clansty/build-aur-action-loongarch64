@@ -74,12 +74,12 @@ runs:
     - name: patch config.guess / config.sub
       shell: bash
       run: |
-        all_config_guess=$(find /loongarch64-root/home/builder/* -name config.guess)
+        all_config_guess=$(sudo find /loongarch64-root/home/builder/* -name config.guess)
         for config_guess in ${all_config_guess};do
           sudo rm ${config_guess}
           sudo wget http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess -O ${config_guess}
         done
-        all_config_sub=$(find /loongarch64-root/home/builder/* -name config.sub)
+        all_config_sub=$(sudo find /loongarch64-root/home/builder/* -name config.sub)
         for config_sub in ${all_config_sub};do
           sudo rm ${config_sub}
           sudo wget http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub -O ${config_sub}
