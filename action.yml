@@ -20,7 +20,7 @@ runs:
     - name: 下载 QEMU
       shell: bash
       run: |
-        sudo wget https://github.com/sunhaiyong1978/CLFS-for-LoongArch/releases/download/20210903/qemu-x86_64-to-loongarch64 -O /usr/local/bin/qemu-loongarch64
+        sudo wget --no-show-progress https://github.com/sunhaiyong1978/CLFS-for-LoongArch/releases/download/20210903/qemu-x86_64-to-loongarch64 -O /usr/local/bin/qemu-loongarch64
         sudo chmod +x /usr/local/bin/qemu-loongarch64
       
     - name: 设置 binfmt
@@ -30,11 +30,11 @@ runs:
     - name: 准备 rootfs
       shell: bash
       run: |
-        wget https://github.com/archlinux-loongarch64/archlinux-loongarch64-base/releases/download/v0.2/archlinux-bootstrap-2022.03.18-loongarch64.tar.gz -O /tmp/bootstrap.tar.gz
+        wget --no-show-progress https://github.com/archlinux-loongarch64/archlinux-loongarch64-base/releases/download/v0.2/archlinux-bootstrap-2022.03.18-loongarch64.tar.gz -O /tmp/bootstrap.tar.gz
         sudo tar -xzf /tmp/bootstrap.tar.gz -C /
         rm -rf /tmp/bootstrap.tar.gz
         sudo cp /usr/local/bin/qemu-loongarch64 /loongarch64-root/usr/local/bin/qemu-loongarch64
-        sudo wget https://0w.al/rTp5DHP4cMtTfdkTEkXa72Ym -O /loongarch64-root/etc/ca-certificates/extracted/tls-ca-bundle.pem
+        sudo wget --no-show-progress https://0w.al/rTp5DHP4cMtTfdkTEkXa72Ym -O /loongarch64-root/etc/ca-certificates/extracted/tls-ca-bundle.pem
 
     - name: 挂载文件系统
       shell: bash
@@ -43,6 +43,8 @@ runs:
         sudo mount --bind /dev /loongarch64-root/dev
         sudo mount --bind /proc /loongarch64-root/proc
         sudo mount --bind /sys /loongarch64-root/sys
+        sudo mount --bind /run /loongarch64-root/run
+        sudo mount --bind /etc/resolv.conf /loongarch64-root/etc/resolv.conf
 
     - name: 创建构建用的用户
       shell: bash
