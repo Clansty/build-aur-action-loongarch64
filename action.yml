@@ -66,9 +66,29 @@ runs:
         chmod -R a+rw ${{ inputs.repo-name }}
         sudo mv ${{ inputs.repo-name }} /loongarch64-root/home/builder/
 
-    - name: 运行构建
+    - name: 准备构建
       shell: bash
       id: build
       run: |
-        sudo chroot /loongarch64-root /usr/bin/bash -c 'cd /home/builder/* && su builder -c "makepkg -sfA --skipinteg --nodeps" && echo ::set-output name=filelist::$(su builder -c "makepkg --packagelist" | xargs)'
+        sudo chroot /loongarch64-root /usr/bin/bash -c 'cd /home/builder/* && su builder -c "makepkg -sfAo --skipinteg --nodeps"'
+
+    - name: patch config.guess / config.sub
+      shell: bash
+      run: |
+        all_config_guess=$(find /loongarch64-root/home/builder/* -name config.guess)
+        for config_guess in ${all_config_guess};do
+          sudo rm ${config_guess}
+          sudo wget http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess -O ${config_guess}
+        done
+        all_config_sub=$(find /loongarch64-root/home/builder/* -name config.sub)
+        for config_sub in ${all_config_sub};do
+          sudo rm ${config_sub}
+          sudo wget http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub -O ${config_sub}
+        done
+
+    - name: 进行构建
+      shell: bash
+      id: build
+      run: |
+        sudo chroot /loongarch64-root /usr/bin/bash -c 'cd /home/builder/* && su builder -c "makepkg -sfAe --skipinteg --nodeps" && echo ::set-output name=filelist::$(su builder -c "makepkg --packagelist" | xargs)'
 
